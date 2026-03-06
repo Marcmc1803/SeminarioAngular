@@ -6,6 +6,7 @@ import { Organizacion } from '../models/organizacion.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog';
+import { OrganizacionService } from '../services/organizacion.service';
 
 
 @Component({
@@ -29,7 +30,12 @@ export class UsuarioList implements OnInit {
   expanded: { [key: string]: boolean } = {};
 
 
-  constructor(private api: UsuarioService, private fb: FormBuilder, private cdr: ChangeDetectorRef, private dialog: MatDialog) {
+  constructor(
+    private api: UsuarioService,
+    private orgService: OrganizacionService, 
+    private fb: FormBuilder, 
+    private cdr: ChangeDetectorRef, 
+    private dialog: MatDialog) {
     this.usuarioForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -75,7 +81,8 @@ export class UsuarioList implements OnInit {
 
     this.api.getUsuarios().subscribe({
       next: (res) => {
-        this.usuarios = res?.usuarios ?? [];
+        console.log('Respuesta del backend (Usuarios):', res);
+        this.usuarios = res.usuarios ? res.usuarios : (Array.isArray(res) ? res : []);
         this.usuariosFiltrados = [...this.usuarios];
         this.loading = false;
         this.cdr.detectChanges();
@@ -106,8 +113,12 @@ export class UsuarioList implements OnInit {
 
 loadOrganizaciones(): void {
   this.api.getOrganizaciones().subscribe({
-    next: (res) => this.organizaciones = res?.organizaciones ?? [],
-    error: (err) => console.error(err)
+    next: (res) => {
+      console.log('Respuesta del backend (Organizaciones):', res);
+      this.organizaciones = res.organizaciones ? res.organizaciones : (Array.isArray(res) ? res : []);
+      this.cdr.detectChanges(); // <-- Forzamos a que el <select> se actualice
+    },
+    error: (err) => console.error('Error al cargar organizaciones:', err)
   });
 }
 

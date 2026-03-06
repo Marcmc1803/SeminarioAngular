@@ -67,4 +67,29 @@
 
 </div>
 
+<div *ngIf="!loading && !errorMsg && usuariosFiltrados.length > 0">
+  <table style="width: 100%; text-align: left; margin-top: 20px; border-collapse: collapse;">
+    <thead>
+      <tr style="border-bottom: 1px solid #ccc;">
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Organización</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of usuariosFiltrados" style="border-bottom: 1px solid #eee;">
+        <td style="padding: 8px 0;">{{ u.name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ organizacionLabel(u) }}</td> <td>
+          <button (click)="editar(u)">Editar</button>
+          <button (click)="confirmDelete(u._id, u.name)">Borrar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
 <button type="button" class="btn" (click)="load()" style="margin-top: 15px;">Recargar</button>
