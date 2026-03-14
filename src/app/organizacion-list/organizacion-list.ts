@@ -5,12 +5,13 @@ import { Organizacion } from '../models/organizacion.model';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog';
+import { OrganizacionUsuarios } from '../organizacion-usuarios/organizacion-usuarios';
 
 
 @Component({
   selector: 'app-organizacion-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
+  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, OrganizacionUsuarios],
   templateUrl: './organizacion-list.html',
   styleUrls: ['./organizacion-list.css'],
 })

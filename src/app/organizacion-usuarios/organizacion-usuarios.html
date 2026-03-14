@@ -1,0 +1,33 @@
+<div class="org-users-container">
+  <h4>Gestionar Usuarios Vinculados</h4>
+
+  @if (errorMsg) {
+    <p class="error">{{ errorMsg }}</p>
+  }
+
+  <div class="add-user-section">
+    <select [formControl]="selectedUserControl">
+      <option value="">-- Seleccionar usuario para añadir --</option>
+      @for (u of usuariosDisponibles; track u._id) {
+        <option [value]="u._id">{{ u.name }} ({{ u.email }})</option>
+      }
+    </select>
+    <button class="btn" style="margin-left: 10px;" (click)="addUsuario()" [disabled]="!selectedUserControl.value || loading">Vincular</button>
+  </div>
+
+  <div class="current-users-section" style="margin-top: 15px;">
+    <h5>Usuarios actuales en la organización:</h5>
+    @if (organizacion.users && organizacion.users.length > 0) {
+      <ul>
+        @for (user of organizacion.users; track user._id) {
+          <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span>{{ user.name }} ({{ user.email }})</span>
+            <button class="btn delete-btn" (click)="removeUsuario(user)" [disabled]="loading">Remover</button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="muted">No hay usuarios vinculados a esta organización.</p>
+    }
+  </div>
+</div>

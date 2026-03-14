@@ -1,0 +1,20 @@
+.org-users-container {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f4f6f8;
+  margin-top: 15px;
+}
+.error {
+  color: #d32f2f;
+}
+.add-user-section {
+  display: flex;
+  align-items: center;
+}
+.add-user-section select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  flex: 1;
+}
