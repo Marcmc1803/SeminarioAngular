@@ -137,11 +137,11 @@ guardar(): void {
   
   if (this.usuarioForm.invalid) return;
 
-  const { name, email, password, organizacion } = this.usuarioForm.value;
-
-  if (this.editando && this.usuarioEditId) {
-    // UPDATE: pasamos id, name, email, password, organizacion
-    this.api.updateUsuario(this.usuarioEditId, name, email, password, organizacion)
+    const { name, email, password, organizacion: organization } = this.usuarioForm.value;
+  
+    if (this.editando && this.usuarioEditId) {
+      // UPDATE: pasamos id, name, email, password, organizacion
+      this.api.updateUsuario(this.usuarioEditId, name, email, password, organization)
       .subscribe({
         next: () => {
           this.resetForm();
@@ -149,14 +149,14 @@ guardar(): void {
         },
         error: (err) => {
           console.error(err);
-          this.errorMsg = 'No se ha podido actualizar el usuario.';
+          this.errorMsg = err.error?.message || err.message || 'No se ha podido actualizar el usuario.';
         }
       });
 
   } else {
 
     // CREATE: pasamos name, email, password, organizacion
-    this.api.createUsuario(name, email, password, organizacion)
+    this.api.createUsuario(name, email, password, organization)
       .subscribe({
         next: () => {
           this.resetForm();
@@ -164,7 +164,7 @@ guardar(): void {
         },
         error: (err) => {
           console.error(err);
-          this.errorMsg = 'No se ha podido crear el usuario.';
+          this.errorMsg = err.error?.message || err.message || 'No se ha podido crear el usuario.';
         }
       });
   }

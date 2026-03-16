@@ -32,12 +32,10 @@
           }}
           </span>
 
-          <!-- Botón para mostrar más o menos si el nombre es largo -->
-          @if (org.name.length > 15) {
-            <button class="btn" (click)="toggleExpand(org._id)">
-              {{ expanded[org._id] ? 'Mostrar menos' : 'Mostrar más' }}
-            </button>
-          }
+          <!-- Botón para ver u ocultar usuarios de la organización -->
+          <button class="btn" (click)="toggleExpand(org._id)">
+            {{ expanded[org._id] ? 'Ocultar usuarios' : 'Ver usuarios' }}
+          </button>
         </div>
 
         <!-- Vista de Detalle: Sólo visible si está expandido -->

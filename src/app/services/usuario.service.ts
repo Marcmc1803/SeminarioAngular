@@ -16,44 +16,44 @@ export class UsuarioService {
   //Función: obtener usuarios de la API
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(
-      `${this.baseUrl}/usuarios`
+      `${this.baseUrl}/users`
     );
   }
 
   //Función: obtener organizaciones de la API
   getOrganizaciones(): Observable<Organizacion[]> {
     return this.http.get<Organizacion[]>(
-      `${this.baseUrl}/organizaciones`
+      `${this.baseUrl}/organizations`
     );
   }
 
   //Función: obtener un usuario por su ID
   getUsuarioById(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(
-      `${this.baseUrl}/usuarios/${id}`
+      `${this.baseUrl}/users/${id}`
     );
   }
 
   //Función: crear nuevo usuario
-  createUsuario(name: string, email: string, password: string, organizacion: string): Observable<Usuario> {
+  createUsuario(name: string, email: string, password: string, organization: string): Observable<Usuario> {
     return this.http.post<Usuario>(
-      `${this.baseUrl}/usuarios`,
-      { name, email, password, organizacion }
+      `${this.baseUrl}/users`,
+      { name, email, password, organization }
     );
   }
 
   //Función: actualizar usuario existente
-  updateUsuario(id: string, name: string, email: string, password: string, organizacion: string): Observable<Usuario> {
+  updateUsuario(id: string, name: string, email: string, password: string, organization: string): Observable<Usuario> {
     return this.http.put<Usuario>(
-      `${this.baseUrl}/usuarios/${id}`,
-      { name, email, password, organizacion } 
+      `${this.baseUrl}/users/${id}`,
+      { name, email, password, organization } 
     );
   }
 
   //Función: eliminar usuario
   deleteUsuario(id: string): Observable<void> {
     return this.http.delete<void>(
-      `${this.baseUrl}/usuarios/${id}`
+      `${this.baseUrl}/users/${id}`
     );
   }
 }
